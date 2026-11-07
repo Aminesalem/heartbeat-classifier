@@ -11,26 +11,31 @@ About 90% of the beats are normal, so a model can get good accuracy by just sayi
 Without class weights:
 ```
 class               recall  precision   count
-normal               0.996      0.982   18118
-supraventricular     0.658      0.931     556
-ventricular          0.948      0.940    1448
-fusion               0.617      0.885     162
-unknown              0.964      0.994    1608
-accuracy: 0.979
+normal               0.997      0.980   18118
+supraventricular     0.606      0.963     556
+ventricular          0.934      0.947    1448
+fusion               0.685      0.867     162
+unknown              0.963      0.996    1608
+accuracy: 0.978
 ```
 
 With class weights:
 ```
 class               recall  precision   count
-normal               0.907      0.994   18118
-supraventricular     0.867      0.321     556
-ventricular          0.939      0.844    1448
-fusion               0.895      0.286     162
-unknown              0.985      0.911    1608
-accuracy: 0.914
+normal               0.904      0.992   18118
+supraventricular     0.876      0.315     556
+ventricular          0.922      0.871    1448
+fusion               0.920      0.206     162
+unknown              0.965      0.984    1608
+accuracy: 0.909
 ```
 
-The first model has great accuracy but misses a lot of the rare beats: only 66% of supraventricular and 62% of fusion beats are found. With weights it finds almost 9 in 10 of them, but it also labels a lot of normal beats as abnormal, which is why precision falls to about 0.3 and accuracy goes down to 91%. For heartbeats I'd rather have false alarms than miss an abnormal one, so I prefer the weighted version, even if the weights I used are probably too strong.
+![confusion matrix, no weights](results/confusion_baseline.png)
+![confusion matrix, class weights](results/confusion_weighted.png)
+
+Without weights the accuracy is very high, but the model misses a lot of the rare beats: it finds only 61% of the supraventricular ones and 69% of the fusion ones. With weights it finds almost 9 in 10 supraventricular beats and 92% of the fusion ones, but it also labels many normal beats as abnormal, so precision falls to 0.2-0.3 and accuracy goes down to 91%. For heartbeats I'd rather have false alarms than miss an abnormal one, so I prefer the weighted version, even if the weights I used are probably too strong.
+
+The small classes change a bit from run to run (fusion has only 162 beats in the test set), so I fixed the seed to make the two runs comparable.
 
 ## How to run
 
