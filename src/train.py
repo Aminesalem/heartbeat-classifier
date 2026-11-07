@@ -4,7 +4,7 @@ from metrics import recall_report
 from data import get_loaders
 from model import ECGNet
 
-USE_WEIGHTS = False
+USE_WEIGHTS = True
 EPOCHS = 10
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
