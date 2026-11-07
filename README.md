@@ -2,6 +2,8 @@
 
 A small 1D CNN in PyTorch that sorts ECG heartbeats into 5 classes: normal, supraventricular, ventricular, fusion and unknown. I used the MIT-BIH dataset from Kaggle, where the recordings are already cut into single beats.
 
+![example beats](results/beats.png)
+
 About 90% of the beats are normal, so a model can get good accuracy by just saying "normal" every time. Because of that I looked at recall and precision per class, and I trained the model twice: once normally and once with class weights in the loss.
 
 ## Results
