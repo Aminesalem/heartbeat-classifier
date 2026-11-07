@@ -1,8 +1,10 @@
 import torch
 import torch.nn as nn
-from metrics import recall_report
+from metrics import recall_report, plot_confusion
 from data import get_loaders
 from model import ECGNet
+
+torch.manual_seed(0)
 
 USE_WEIGHTS = True
 EPOCHS = 10
@@ -41,3 +43,5 @@ with torch.no_grad():
 
 names = ["normal", "supraventricular", "ventricular", "fusion", "unknown"]
 recall_report(labels, preds, names)
+tag = "weighted" if USE_WEIGHTS else "baseline"
+plot_confusion(labels, preds, names, f"results/confusion_{tag}.png")
